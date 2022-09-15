@@ -1,0 +1,101 @@
+mysql> alter table db.emp add foreign key(deptno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table db.emp add foreign key (deptno) references dept(deptno);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe db.emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empno  | int         | YES  |     | NULL    |       |
+| ename  | varchar(15) | YES  |     | NULL    |       |
+| job    | char(10)    | YES  |     | NULL    |       |
+| deptno | int         | YES  | MUL | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table db.student(regno int(6),markno int(3));
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> create table db.student1(regno int(6),markno int(3));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> alter table db.student1 add contraint(markno >=0 and <=100);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(markno >=0 and <=100)' at line 1
+mysql> alter table db.student1 add contraint(markno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(markno)' at line 1
+mysql> alter table db.student1 add contraint check(markno >=0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check(markno >=0)' at line 1
+mysql> alter table db.student1 add constraint check(markno >=0);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe db.student1;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| regno  | int  | YES  |     | NULL    |       |
+| markno | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table db.student1 add constraint check(regno >4);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe db.student1;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| regno  | int  | YES  |     | NULL    |       |
+| markno | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table db.cust(custno int(6)not null,name char(10));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> describe db.cust;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| custno | int      | NO   |     | NULL    |       |
+| name   | char(10) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from db.cust;
+Empty set (0.00 sec)
+
+mysql> describe db.cust;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| custno | int      | NO   |     | NULL    |       |
+| name   | char(10) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update db.cust set name char='name char not null';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char='name char not null'' at line 1
+mysql> update db.cust set name char='name char'where name char='not null';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char='name char'where name char='not null'' at line 1
+mysql> update db.cust set name char='not null';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char='not null'' at line 1
+mysql> create table db.stud(regno int(6),name char(20));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> alter table db.stud add constraint primary key(regno);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe db.stud;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| regno | int      | NO   | PRI | NULL    |       |
+| name  | char(20) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
